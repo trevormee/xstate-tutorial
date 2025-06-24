@@ -280,26 +280,110 @@
 /*************************************************************************/
 
 //// volumeMachine.ts App Component -- Adding Context
-import { volumeMachine } from "./machines/volumeMachine";
+// import { volumeMachine } from "./machines/volumeMachine";
+// import { useMachine } from "@xstate/react";
+
+// function App() 
+// {
+//   const [state, send] = useMachine(volumeMachine);
+//   const { volume } = state.context;   // access the 'volume' context
+
+//   return (
+//     <div>
+//       <p>Volume: {volume}</p>
+//       <input
+//         type="range"
+//         value={volume}
+//         onChange={(e) =>
+//           send({ type: "change.volume", volume: e.target.valueAsNumber })
+//         }
+//       />
+//     </div>
+//   );
+// }
+
+// export default App;
+/*************************************************************************/
+
+/*************************************************************************/
+//// subscriptionMachine.ts App Component- History State
+import React, { useState } from "react";
+import { subscriptionMachine } from "./machines/subscriptionMachine";
 import { useMachine } from "@xstate/react";
 
-function App() 
-{
-  const [state, send] = useMachine(volumeMachine);
-  const { volume } = state.context;   // access the 'volume' context
+function App () {
+
+  const [state, send] = useMachine(subscriptionMachine);
+
+  // Define a piece of state 'inputName' for a user to set their name
+  const [inputName, setInputName] = useState("");
+
+  const isEnteringName = state.matches("name");
 
   return (
-    <div>
-      <p>Volume: {volume}</p>
-      <input
-        type="range"
-        value={volume}
-        onChange={(e) =>
-          send({ type: "change.volume", volume: e.target.valueAsNumber })
-        }
-      />
-    </div>
+    <>
+      <div>
+        {/* Subscription State UI */}
+        {state.matches("subscription") && (
+          <>
+            <h2> 
+              <pre>{JSON.stringify(state.value, null, 2)}</pre>
+            </h2>
+            <h3>Subscription Method: </h3>
+            <label htmlFor="free">Free</label>
+            <input 
+              type="radio"
+              name="free"
+              id="free"
+              value="free"
+              checked={state.matches({subscription: "free"})}
+              onChange={() => send({ type: "set.free"})}
+              />
+            <label htmlFor="pro">Pro</label>
+            <input 
+              type="radio"
+              name="pro"
+              id="pro"
+              value="pro"
+              checked={state.matches({subscription: "pro"})}
+              onChange={() => send({ type: "set.pro"})}
+            />
+            {/* Display user's name if available */}
+            <p>
+              <strong>Name:</strong> { state.context.uname || "(not set)"}
+            </p>
+          </>
+        )}
+      </div>
+
+      {/* Toggle button to enter/exit name input */}
+        <button 
+          onClick={() => 
+            send({ type: isEnteringName ? "go.back" : "enter.name"})
+          }
+          >
+            {isEnteringName ? "Go back" : "Enter name"}
+        </button>
+      {/* Name input state UI */}
+      { isEnteringName && (
+      <div>
+        <label htmlFor="name">Enter your name: </label>
+        <input 
+          id="name"
+          type="text"
+          value={inputName}
+          onChange={(e) => {
+            const newName = e.target.value;
+            setInputName(newName);
+            send({ type: "change.name", uname: newName});
+          }}
+            placeholder="Type your name..."  
+        />
+      </div>
+      )}
+    </>
   );
 }
 
 export default App;
+/*************************************************************************/

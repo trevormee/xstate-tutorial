@@ -1,18 +1,36 @@
 
 //// Subscription Machine - History States
-import { setup } from "xstate";
+import { setup, assign, assertEvent } from "xstate";
 
 export const subscriptionMachine = setup({
     types: {
+        context: {} as { uname: string},
         events: {} as 
+            | { type: "change.name"; uname: string}
             | { type: "set.pro"}
             | { type: "set.free"}
             | { type: "enter.name"}
             | { type: "go.back"}
+    },
+    actions: {
+        "change.name": assign(({event}) => {
+            assertEvent(event, "change.name");
+            return { uname: event.uname };
+        })
     }
 }).createMachine({
-    context: {},
+    context: {
+        uname: "",                    // Init. name as empty string
+    },
+    id: "Subscription Machine",
     initial: "subscription",         // initial/parent state
+    on: {
+        "change.name": {
+            actions: {
+                type: "change.name",
+            },
+        },
+    },
     states: {
         subscription: {
             initial: "free",         // set subscription state to initially be free
