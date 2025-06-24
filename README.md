@@ -2,7 +2,7 @@
 
 This project contains various XState State Machines on various concepts. Each 
 state machine has a section in App.tsx that corresponds to that machine. This project
-followed closely to [xstateforreactdevelopers.com](xstateforreactdevelopers.com) tutorial
+followed closely to [xstateforreactdevelopers.com](https://www.xstateforreactdevelopers.com/) tutorial
 
 ## Concepts include... <br />
 ### 1) Basic XState Setup 
