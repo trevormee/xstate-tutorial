@@ -17,13 +17,39 @@ Files on demonstrating this concept: <br />
 * coffeeMachine.ts
 #### Compound States
 * Are states that contain other states, which can have their own nested states and so on, leading to a hierarchial structuring <br />
-![Alt text](images/compound-states.png)
+<img src="images/compound-states.png" alt="Compound States Example" style="max-width: 400px; mex-height: 400px;">
+
 
 ### 3) Parallel States
 Files on demonstrating this concept: <br />
 * mediaPlayerMachine.ts
 * thermostatMachine.ts
 
+#### Parallel States
+* Are states used to model  concurrent behavior in a state machine allowing multiple states to exist independently of each other.
+* For example, a media player might have a "track" state that represents the current track being played and a "mute" state that represents if the track is being muted.
+* Set type to "parallel" in your state machine
+
+<img src="images/parallel-states.png" alt="Compound States Example" style="max-width: 400px; mex-height: 400px;">
+
 ### 4) History States
+Files on demonstrating this concept: <br />
 * subscriptionMachine.ts
+
+#### History States
+* A history state is a special type of that <strong>remembers</strong> the last active state within a compound state. This allows you to <strong>resume</strong> where your left off when re-enetering a compound state
+* Set type to "history" in your state machine
+* For a 'Deep History' State, set the type to "deep" inside your hist state
+<img src="images/history-state1.png" alt="Compound States Example" style="max-width: 400px; mex-height: 400px;">
+<img src="images/history-state2.png" alt="Compound States Example" style="max-width: 400px; mex-height: 400px;">
+
+
 ### 5) Context
+Files on demonstrating this concept: <br />
+* subscriptionMachine.ts
+* volumeMachine.ts
+
+#### Adding Context
+* We use state to store <strong>finite</strong> state. We use context to store <strong>infinite</strong> state
+* Finite State = a predifined set of states that a machine can be in
+* Infinite State = a state that has too many possible values to predefine. For example, the current volume in a music player
