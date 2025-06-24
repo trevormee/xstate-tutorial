@@ -17,7 +17,7 @@ Files on demonstrating this concept: <br />
 * coffeeMachine.ts
 #### Compound States
 * Are states that contain other states, which can have their own nested states and so on, leading to a hierarchial structuring <br />
-<img src="images/compound-states.png" alt="Compound States Example" style="max-width: 400px; mex-height: 400px;">
+<img src="images/compound-states.png" alt="Compound States Example" style="max-width: 250px; mex-height: 250px;">
 
 
 ### 3) Parallel States
@@ -30,7 +30,7 @@ Files on demonstrating this concept: <br />
 * For example, a media player might have a "track" state that represents the current track being played and a "mute" state that represents if the track is being muted.
 * Set type to "parallel" in your state machine
 
-<img src="images/parallel-states.png" alt="Compound States Example" style="max-width: 400px; mex-height: 400px;">
+<img src="images/parallel-states.png" alt="Compound States Example" style="max-width: 250px; mex-height: 250px;">
 
 ### 4) History States
 Files on demonstrating this concept: <br />
@@ -40,8 +40,8 @@ Files on demonstrating this concept: <br />
 * A history state is a special type of that <strong>remembers</strong> the last active state within a compound state. This allows you to <strong>resume</strong> where your left off when re-enetering a compound state
 * Set type to "history" in your state machine
 * For a 'Deep History' State, set the type to "deep" inside your hist state
-<img src="images/history-state1.png" alt="Compound States Example" style="max-width: 400px; mex-height: 400px;">
-<img src="images/history-state2.png" alt="Compound States Example" style="max-width: 400px; mex-height: 400px;">
+<img src="images/history-state1.png" alt="Compound States Example" style="max-width: 250px; mex-height: 250px;">
+<img src="images/history-state2.png" alt="Compound States Example" style="max-width: 250px; mex-height: 250px;">
 
 
 ### 5) Context
