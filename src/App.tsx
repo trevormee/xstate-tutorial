@@ -220,58 +220,85 @@
 /*************************************************************************/
 
 //// subscriptionMachine.ts - History State
-import React from "react";
-import { subscriptionMachine } from "./machines/subscriptionMachine";
+// import React from "react";
+// import { subscriptionMachine } from "./machines/subscriptionMachine";
+// import { useMachine } from "@xstate/react";
+
+// function App () {
+
+//   const [state, send] = useMachine(subscriptionMachine);
+
+//   const isEnteringName = state.matches("name");
+
+//   return (
+//     <>
+//       <div>
+//         {state.matches("subscription") && (
+//           <>
+//             <h2> 
+//               <pre>{JSON.stringify(state.value, null, 2)}</pre>
+//             </h2>
+//             <h3>Subscription Method: </h3>
+//             <label htmlFor="free">Free</label>
+//             <input 
+//               type="radio"
+//               name="free"
+//               id="free"
+//               value="free"
+//               checked={state.matches({subscription: "free"})}
+//               onChange={() => send({ type: "set.free"})}
+//               />
+//               <label htmlFor="pro">Pro</label>
+//             <input 
+//               type="radio"
+//               name="pro"
+//               id="pro"
+//               value="pro"
+//               checked={state.matches({subscription: "pro"})}
+//               onChange={() => send({ type: "set.pro"})}
+//             />
+            
+//           </>
+//         )}
+//       </div>
+//       <div>
+//         <label htmlFor="name"></label>
+//         <button 
+//           onClick={() => 
+//             send({ type: isEnteringName ? "go.back" : "enter.name"})
+//           }
+//           >
+//             {isEnteringName ? "Go back" : "Enter name"}
+//           </button>
+//       </div>
+//     </>
+//   );
+// }
+
+// export default App;
+
+/*************************************************************************/
+
+//// volumeMachine.ts App Component -- Adding Context
+import { volumeMachine } from "./machines/volumeMachine";
 import { useMachine } from "@xstate/react";
 
-function App () {
-
-  const [state, send] = useMachine(subscriptionMachine);
-
-  const isEnteringName = state.matches("name");
+function App() 
+{
+  const [state, send] = useMachine(volumeMachine);
+  const { volume } = state.context;   // access the 'volume' context
 
   return (
-    <>
-      <div>
-        {state.matches("subscription") && (
-          <>
-            <h2> 
-              <pre>{JSON.stringify(state.value, null, 2)}</pre>
-            </h2>
-            <h3>Subscription Method: </h3>
-            <label htmlFor="free">Free</label>
-            <input 
-              type="radio"
-              name="free"
-              id="free"
-              value="free"
-              checked={state.matches({subscription: "free"})}
-              onChange={() => send({ type: "set.free"})}
-              />
-              <label htmlFor="pro">Pro</label>
-            <input 
-              type="radio"
-              name="pro"
-              id="pro"
-              value="pro"
-              checked={state.matches({subscription: "pro"})}
-              onChange={() => send({ type: "set.pro"})}
-            />
-            
-          </>
-        )}
-      </div>
-      <div>
-        <label htmlFor="name"></label>
-        <button 
-          onClick={() => 
-            send({ type: isEnteringName ? "go.back" : "enter.name"})
-          }
-          >
-            {isEnteringName ? "Go back" : "Enter name"}
-          </button>
-      </div>
-    </>
+    <div>
+      <p>Volume: {volume}</p>
+      <input
+        type="range"
+        value={volume}
+        onChange={(e) =>
+          send({ type: "change.volume", volume: e.target.valueAsNumber })
+        }
+      />
+    </div>
   );
 }
 
