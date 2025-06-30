@@ -1,7 +1,7 @@
 
 /************************************************************************
 /*
-  onOffMachine App Component - basics
+  //// onOffMachine App Component - basics
 */
 
 // import { onOffMachine } from "./machines/onOffMachine";
